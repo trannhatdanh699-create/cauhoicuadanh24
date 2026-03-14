@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hiệp Bug - Valentine</title>
+  <link rel="icon" href="./gif/favicon.ico" type="image/x-icon">
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #ffe4e1;
+      font-family: Arial, sans-serif;
+      color: #ff0000;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .button {
+      font-size: 1rem;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .button:active {
+      transform: scale(0.95);
+    }
+
+    .yes-button {
+      background-color: #4caf50;
+      color: white;
+    }
+
+    .no-button {
+      background-color: #ff6b6b;
+      color: white;
+    }
+
+    .cat {
+      margin-top: 20px;
+      width: 120px;
+      height: auto;
+    }
+
+    .cat.enlarged {
+      transform: scale(1.6);
+    }
+
+    .container-top {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container-top" id="containerTop">
+    <h1 id="message">Nhi sẽ bao Danh chu li bi phải không?</h1>
+  </div>
+  <div class="buttons" id="buttonsContainer">
+    <button class="button yes-button" id="yesButton" onclick="handleYes()">Đồng ý</button>
+    <button class="button no-button" id="noButton" onclick="handleNo()">Từ chối</button>
+  </div>
+
+  <script>
+    let noClickCount = 0;
+
+    function handleYes() {
+      const message = document.getElementById('message');
+      const catImage = document.getElementById('catImage');
+      const containerTop = document.getElementById('containerTop');
+      const buttonsContainer = document.getElementById('buttonsContainer');
+
+      message.textContent = " Biết ngay là Nhi sẽ đồng ý mà :3 ";
+      message.style.color = "#ff69b4";
+      buttonsContainer.style.display = "none";
+    }
+
+    function handleNo() {
+      const message = document.getElementById('message');
+      const noButton = document.getElementById('noButton');
+      const yesButton = document.getElementById('yesButton');
+      const catImage = document.getElementById('catImage');
+
+      noClickCount++;
+
+      const messages = [
+        "Không được từ chối đâu nha! 😠",
+        "Thật không? Nhi không muốn à? 😢",
+        "Hãy nghĩ lại đi mà! 😭",
+        "Thôi mà, nhấn Đồng ý đi mà! 🥺"
+      ];
+      message.textContent = messages[noClickCount % messages.length];
+
+      const noButtonTexts = [
+        "Chắc chắn không?",
+        "Thật sự chắc chắn?",
+        "Danh sẽ buồn đó!",
+        "Nhấn Đồng ý đi mà!"
+      ];
+      noButton.textContent = noButtonTexts[noClickCount % noButtonTexts.length];
+
+      const marginIncrease = noClickCount * 10;
+      containerTop.style.marginBottom = `${10 + marginIncrease}px`;
+
+      if (noClickCount >= 8) {
+        yesButton.style.position = "fixed";
+        yesButton.style.top = "0";
+        yesButton.style.left = "0";
+        yesButton.style.width = "100vw";
+        yesButton.style.height = "100vh";
+        yesButton.style.fontSize = "3rem";
+        yesButton.textContent = "Đồng ý";
+      } else {
+        yesButton.style.transform = `scale(${1 + noClickCount * 0.5})`;
+      }
+    }
+  </script>
+</body>
+</html>
+
